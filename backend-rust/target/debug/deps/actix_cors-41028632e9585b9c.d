@@ -1,0 +1,10 @@
+/Users/nia/Desktop/Aslab/TPA 25-1/4. Network/Onsite/Code/WhatsVUpp_V99/backend-rust/target/debug/deps/libactix_cors-41028632e9585b9c.rmeta: /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/lib.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/all_or_some.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/builder.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/error.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/inner.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/middleware.rs
+
+/Users/nia/Desktop/Aslab/TPA 25-1/4. Network/Onsite/Code/WhatsVUpp_V99/backend-rust/target/debug/deps/actix_cors-41028632e9585b9c.d: /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/lib.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/all_or_some.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/builder.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/error.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/inner.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/middleware.rs
+
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/lib.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/all_or_some.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/builder.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/error.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/inner.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-cors-0.6.5/src/middleware.rs:

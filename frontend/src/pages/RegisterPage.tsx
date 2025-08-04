@@ -1,22 +1,31 @@
-import type React from "react"
-import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { MessageCircle, Lock, User, AlertCircle, CheckCircle, Eye, EyeOff } from "lucide-react"
+import type React from "react";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  MessageCircle,
+  Lock,
+  User,
+  AlertCircle,
+  CheckCircle,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 
 const RegisterPage: React.FC = () => {
-  const [username, setUsername] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
-  const [confirmPassword, setConfirmPassword] = useState<string>("")
-  const [error, setError] = useState<string>("")
-  const [success, setSuccess] = useState<string>("")
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [showPassword, setShowPassword] = useState<boolean>(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
-  const navigate = useNavigate()
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
+  const navigate = useNavigate();
 
   const encryptPassword = async (password: string): Promise<string | null> => {
     try {
@@ -24,48 +33,48 @@ const RegisterPage: React.FC = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),
-      })
-      const data = await response.json()
-      console.log(data)
-      return data.encrypted_password
+      });
+      const data = await response.json();
+      console.log(data);
+      return data.encrypted_password;
     } catch (err) {
-      console.log(err)
-      setError("Failed to connect to encryption service.")
-      return null
+      console.log(err);
+      setError("Failed to connect to encryption service.");
+      return null;
     }
-  }
+  };
 
   const validateForm = (): boolean => {
     if (username.length < 3) {
-      setError("Username must be at least 3 characters long.")
-      return false
+      setError("Username must be at least 3 characters long.");
+      return false;
     }
     if (password.length < 6) {
-      setError("Password must be at least 6 characters long.")
-      return false
+      setError("Password must be at least 6 characters long.");
+      return false;
     }
     if (password !== confirmPassword) {
-      setError("Passwords do not match.")
-      return false
+      setError("Passwords do not match.");
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
-    setSuccess("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+    setSuccess("");
 
     if (!validateForm()) {
-      setIsLoading(false)
-      return
+      setIsLoading(false);
+      return;
     }
 
-    const encryptedPassword = await encryptPassword(password)
+    const encryptedPassword = await encryptPassword(password);
     if (!encryptedPassword) {
-      setIsLoading(false)
-      return
+      setIsLoading(false);
+      return;
     }
 
     try {
@@ -73,33 +82,36 @@ const RegisterPage: React.FC = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password: encryptedPassword }),
-      })
-      const data = await response.json()
+      });
+      const data = await response.json();
 
       if (response.ok) {
-        setSuccess("Registration successful! Redirecting to login...")
+        setSuccess("Registration successful! Redirecting to login...");
         setTimeout(() => {
-          navigate("/login")
-        }, 2000)
+          navigate("/login");
+        }, 2000);
       } else {
-        setError(data.error || "Registration failed.")
+        setError(data.error || "Registration failed.");
       }
     } catch (err) {
-      console.log(err)
-      setError("Failed to connect to server.")
+      console.log(err);
+      setError("Failed to connect to server.");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
-  const getPasswordStrength = (password: string): { strength: string; color: string } => {
-    if (password.length === 0) return { strength: "", color: "" }
-    if (password.length < 6) return { strength: "Weak", color: "text-red-500" }
-    if (password.length < 10) return { strength: "Medium", color: "text-yellow-500" }
-    return { strength: "Strong", color: "text-green-500" }
-  }
+  const getPasswordStrength = (
+    password: string
+  ): { strength: string; color: string } => {
+    if (password.length === 0) return { strength: "", color: "" };
+    if (password.length < 6) return { strength: "Weak", color: "text-red-500" };
+    if (password.length < 10)
+      return { strength: "Medium", color: "text-yellow-500" };
+    return { strength: "Strong", color: "text-green-500" };
+  };
 
-  const passwordStrength = getPasswordStrength(password)
+  const passwordStrength = getPasswordStrength(password);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-500 p-4">
@@ -117,12 +129,17 @@ const RegisterPage: React.FC = () => {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
               WhatsVUpp
             </h1>
-            <p className="text-gray-600 mt-2">Create your account to get started.</p>
+            <p className="text-gray-600 mt-2">
+              Create your account to get started.
+            </p>
           </div>
 
           <form onSubmit={handleRegister} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-medium text-gray-700">
+              <Label
+                htmlFor="username"
+                className="text-sm font-medium text-gray-700"
+              >
                 Username
               </Label>
               <div className="relative">
@@ -138,12 +155,17 @@ const RegisterPage: React.FC = () => {
                 />
               </div>
               {username.length > 0 && username.length < 3 && (
-                <p className="text-xs text-red-500">Username must be at least 3 characters</p>
+                <p className="text-xs text-red-500">
+                  Username must be at least 3 characters
+                </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+              <Label
+                htmlFor="password"
+                className="text-sm font-medium text-gray-700"
+              >
                 Password
               </Label>
               <div className="relative">
@@ -162,28 +184,38 @@ const RegisterPage: React.FC = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
                 </button>
               </div>
               {password.length > 0 && (
                 <div className="flex items-center gap-2">
                   <div className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
                     <div
-                      className={`h-full transition-all duration-300 ${passwordStrength.strength === "Weak"
-                        ? "w-1/3 bg-red-500"
-                        : passwordStrength.strength === "Medium"
+                      className={`h-full transition-all duration-300 ${
+                        passwordStrength.strength === "Weak"
+                          ? "w-1/3 bg-red-500"
+                          : passwordStrength.strength === "Medium"
                           ? "w-2/3 bg-yellow-500"
                           : "w-full bg-green-500"
-                        }`}
+                      }`}
                     ></div>
                   </div>
-                  <span className={`text-xs ${passwordStrength.color}`}>{passwordStrength.strength}</span>
+                  <span className={`text-xs ${passwordStrength.color}`}>
+                    {passwordStrength.strength}
+                  </span>
                 </div>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+              <Label
+                htmlFor="confirmPassword"
+                className="text-sm font-medium text-gray-700"
+              >
                 Confirm Password
               </Label>
               <div className="relative">
@@ -202,7 +234,11 @@ const RegisterPage: React.FC = () => {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
-                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showConfirmPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
                 </button>
               </div>
               {confirmPassword.length > 0 && password !== confirmPassword && (
@@ -260,7 +296,7 @@ const RegisterPage: React.FC = () => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;

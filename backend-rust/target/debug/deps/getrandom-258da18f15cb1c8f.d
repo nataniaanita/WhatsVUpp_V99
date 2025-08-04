@@ -1,0 +1,10 @@
+/Users/nia/Desktop/Aslab/TPA 25-1/4. Network/Onsite/Code/WhatsVUpp_V99/backend-rust/target/debug/deps/libgetrandom-258da18f15cb1c8f.rmeta: /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/lib.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/error.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/util.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/error_impls.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/util_libc.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/getentropy.rs
+
+/Users/nia/Desktop/Aslab/TPA 25-1/4. Network/Onsite/Code/WhatsVUpp_V99/backend-rust/target/debug/deps/getrandom-258da18f15cb1c8f.d: /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/lib.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/error.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/util.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/error_impls.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/util_libc.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/getentropy.rs
+
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/lib.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/error.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/util.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/error_impls.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/util_libc.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/getrandom-0.2.15/src/getentropy.rs:

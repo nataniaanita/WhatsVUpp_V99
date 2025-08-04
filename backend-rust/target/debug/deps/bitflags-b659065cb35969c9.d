@@ -1,0 +1,11 @@
+/Users/nia/Desktop/Aslab/TPA 25-1/4. Network/Onsite/Code/WhatsVUpp_V99/backend-rust/target/debug/deps/libbitflags-b659065cb35969c9.rmeta: /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/lib.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/iter.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/parser.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/traits.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/public.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/internal.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/external.rs
+
+/Users/nia/Desktop/Aslab/TPA 25-1/4. Network/Onsite/Code/WhatsVUpp_V99/backend-rust/target/debug/deps/bitflags-b659065cb35969c9.d: /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/lib.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/iter.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/parser.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/traits.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/public.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/internal.rs /Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/external.rs
+
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/lib.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/iter.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/parser.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/traits.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/public.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/internal.rs:
+/Users/nia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.8.0/src/external.rs:

@@ -30,7 +30,7 @@ var db *sql.DB
 
 func main() {
 	var err error
-	connStr := "postgres://postgres:password@localhost:5432/chatdb?sslmode=disable"
+	connStr := "postgres://postgres:password@postgres-db:5432/chatdb?sslmode=disable"
 	db, err = sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal("Error connecting to the database: ", err)

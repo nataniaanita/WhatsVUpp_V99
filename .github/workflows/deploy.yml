@@ -1,0 +1,55 @@
+# name: Deploy Aplikasi ke Kubernetes (Private Registry)
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build-and-push:
+#     runs-on: self-hosted
+
+#     steps:
+#       - name: Checkout Kode
+#         uses: actions/checkout@v4
+
+#       - name: Build dan Push Backend Go
+#         uses: docker/build-push-action@v5
+#         with:
+#           context: ./backend-go
+#           file: ./backend-go/Dockerfile
+#           push: true
+#           tags: private-docker-registry-svc:5000/whatsvupp-backend:latest
+
+#       - name: Build dan Push Frontend
+#         uses: docker/build-push-action@v5
+#         with:
+#           context: ./frontend
+#           file: ./frontend/Dockerfile
+#           push: true
+#           tags: private-docker-registry-svc:5000/whatsvupp-frontend:latest
+
+#       - name: Build dan Push Backend Rust
+#         uses: docker/build-push-action@v5
+#         with:
+#           context: ./backend-rust
+#           file: ./backend-rust/Dockerfile
+#           push: true
+#           tags: private-docker-registry-svc:5000/whatsvupp-rust-backend:latest
+
+#   deploy:
+#     runs-on: self-hosted
+#     needs: build-and-push
+
+#     steps:
+#       - name: Checkout Kode
+#         uses: actions/checkout@v4
+
+#       - name: Set up Kubeconfig
+#         run: |
+#           mkdir -p $HOME/.kube
+#           echo "${{ secrets.KUBECONFIG_DATA }}" > $HOME/.kube/config
+#           chmod 600 $HOME/.kube/config
+
+#       - name: Deploy ke Kubernetes
+#         run: kubectl apply -f k8s/
