@@ -1,0 +1,84 @@
+name: CI/CD WhatsVUpp
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    env:
+      REGISTRY: ${{ secrets.REGISTRY }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Private Registry
+        if: secrets.REGISTRY != '' && secrets.REG_USER != '' && secrets.REG_PASS != ''
+        run: echo "${{ secrets.REG_PASS }}" | docker login "$REGISTRY" -u "${{ secrets.REG_USER }}" --password-stdin
+
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            frontend: "frontend/**"
+            backend_go: "backend-go/**"
+            backend_rust: "backend-rust/**"
+
+      - name: Build & Push FRONTEND
+        if: steps.changes.outputs.frontend == 'true'
+        run: |
+          docker build -t $REGISTRY/frontend:${{ github.sha }} ./frontend
+          docker push $REGISTRY/frontend:${{ github.sha }}
+
+      - name: Build & Push BACKEND-GO
+        if: steps.changes.outputs.backend_go == 'true'
+        run: |
+          cd backend-go && go test ./... && cd ..
+          docker build -t $REGISTRY/backend-go:${{ github.sha }} ./backend-go
+          docker push $REGISTRY/backend-go:${{ github.sha }}
+
+      - name: Build & Push BACKEND-RUST
+        if: steps.changes.outputs.backend_rust == 'true'
+        run: |
+          docker build -t $REGISTRY/backend-rust:${{ github.sha }} ./backend-rust
+          docker push $REGISTRY/backend-rust:${{ github.sha }}
+
+      # ====== Deploy hanya kalau KUBECONFIG_B64 ADA ======
+      - name: Install kubectl (if missing)
+        if: secrets.KUBECONFIG_B64 != ''
+        run: |
+          if ! command -v kubectl >/dev/null; then
+            curl -sSL -o /usr/local/bin/kubectl \
+              https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+            chmod +x /usr/local/bin/kubectl
+          fi
+
+      - name: Write kubeconfig
+        if: secrets.KUBECONFIG_B64 != ''
+        run: |
+          echo "${{ secrets.KUBECONFIG_B64 }}" | base64 -d > $HOME/kubeconfig
+          echo "KUBECONFIG=$HOME/kubeconfig" >> $GITHUB_ENV
+
+      - name: Apply base manifests
+        if: secrets.KUBECONFIG_B64 != ''
+        run: kubectl apply -f k8s
+
+      - name: Rollout update
+        if: secrets.KUBECONFIG_B64 != ''
+        run: |
+          if [ "${{ steps.changes.outputs.frontend }}" = "true" ]; then
+            kubectl -n app set image deploy/frontend frontend=$REGISTRY/frontend:${{ github.sha }}
+          fi
+          if [ "${{ steps.changes.outputs.backend_go }}" = "true" ]; then
+            kubectl -n app set image deploy/backend-go backend-go=$REGISTRY/backend-go:${{ github.sha }}
+          fi
+          if [ "${{ steps.changes.outputs.backend_rust }}" = "true" ]; then
+            kubectl -n app set image deploy/backend-rust backend-rust=$REGISTRY/backend-rust:${{ github.sha }}
+          fi
+
+      - name: Wait for rollout
+        if: secrets.KUBECONFIG_B64 != ''
+        run: |
+          kubectl -n app rollout status deploy/frontend --timeout=180s || true
+          kubectl -n app rollout status deploy/backend-go --timeout=180s || true
+          kubectl -n app rollout status deploy/backend-rust --timeout=180s || true
