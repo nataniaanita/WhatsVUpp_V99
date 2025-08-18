@@ -1,0 +1,37 @@
+grafana:
+  adminUser: gwenchana
+  adminPassword: fighting
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.wap.local
+
+alertmanager:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - alert.wap.local
+  config:
+    global:
+      smtp_smarthost: "smtp.example.com:587"
+      smtp_from: "alerts@wap.local"
+      smtp_auth_username: "user@example.com"
+      smtp_auth_password: "AppPassword/Token"
+      smtp_require_tls: true
+    route:
+      receiver: "email-team"
+      group_by: ["alertname"]
+      repeat_interval: 2h
+    receivers:
+      - name: "email-team"
+        email_configs:
+          - to: "ops@example.com"
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - prom.wap.local

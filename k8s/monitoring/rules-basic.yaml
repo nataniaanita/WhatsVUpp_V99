@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: basic-alerts
+  namespace: monitoring
+spec:
+  groups:
+    - name: node-and-pod
+      rules:
+        - alert: HighNodeCPU
+          expr: avg(rate(node_cpu_seconds_total{mode!="idle"}[5m])) by (instance) > 0.9
+          for: 5m
+          labels: { severity: warning }
+          annotations:
+            summary: "Node CPU > 90% ({{ $labels.instance }})"
+            description: "Rata-rata CPU > 90% selama 5m."
+        - alert: PodRestartSpike
+          expr: increase(kube_pod_container_status_restarts_total[5m]) > 3
+          for: 5m
+          labels: { severity: warning }
+          annotations:
+            summary: "Pod restart berlebihan ({{ $labels.pod }})"
+            description: "Restart > 3x dalam 5m."
