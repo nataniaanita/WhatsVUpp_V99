@@ -1,23 +1,39 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: basic-alerts
-  namespace: monitoring
+  name: whatsvupp-alerting-rules
+  namespace: monitoring 
+  labels:
+    release: kube-prometheus-stack
 spec:
   groups:
-    - name: node-and-pod
+    - name: node-alerts
       rules:
-        - alert: HighNodeCPU
-          expr: avg(rate(node_cpu_seconds_total{mode!="idle"}[5m])) by (instance) > 0.9
+        - alert: NodeHighCpuUsage
+          expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 90
           for: 5m
-          labels: { severity: warning }
+          labels:
+            severity: critical
           annotations:
-            summary: "Node CPU > 90% ({{ $labels.instance }})"
-            description: "Rata-rata CPU > 90% selama 5m."
-        - alert: PodRestartSpike
-          expr: increase(kube_pod_container_status_restarts_total[5m]) > 3
+            summary: "Node High CPU Usage"
+            description: "Node {{ $labels.instance }} has had CPU usage above 90% for 5 minutes."
+
+        - alert: NodeHighRamUsage
+          expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 90
           for: 5m
-          labels: { severity: warning }
+          labels:
+            severity: critical
           annotations:
-            summary: "Pod restart berlebihan ({{ $labels.pod }})"
-            description: "Restart > 3x dalam 5m."
+            summary: "Node High RAM Usage"
+            description: "Node {{ $labels.instance }} has had RAM usage above 90% for 5 minutes."
+
+    - name: pod-alerts
+      rules:
+        - alert: PodCrashLooping
+          expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics"}[5m]) * 60 * 5 > 3
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Pod is crash-looping"
+            description: "Pod {{ $labels.namespace }}/{{ $labels.pod }} has restarted more than 3 times in the last 5 minutes."

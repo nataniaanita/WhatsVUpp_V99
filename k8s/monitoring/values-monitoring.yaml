@@ -15,10 +15,10 @@ alertmanager:
       - alert.wap.local
   config:
     global:
-      smtp_smarthost: "smtp.example.com:587"
-      smtp_from: "alerts@wap.local"
-      smtp_auth_username: "user@example.com"
-      smtp_auth_password: "AppPassword/Token"
+      smtp_smarthost: "smtp.gmail.com:587"
+      smtp_from: "miryeongalt@gmail.com"
+      smtp_auth_username: "miryeongalt@gmail.com"
+      smtp_auth_password: "emrcakbmmzjrmsdb" 
       smtp_require_tls: true
     route:
       receiver: "email-team"
@@ -27,7 +27,7 @@ alertmanager:
     receivers:
       - name: "email-team"
         email_configs:
-          - to: "ops@example.com"
+          - to: "stevenchowina@gmail.com, kennedysrnt@gmail.com"
 
 prometheus:
   ingress:
