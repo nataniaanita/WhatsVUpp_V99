@@ -1,0 +1,20 @@
+groups:
+- name: HostAlerts
+  rules:
+  - alert: HostHighCpuLoad
+    expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 90
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Server CPU Load is high"
+      description: "CPU usage on {{ $labels.instance }} has been over 90% for 2 minutes."
+
+  - alert: HostHighMemoryLoad
+    expr: 100 * (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 90
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Server Memory usage is high"
+      description: "Memory usage on {{ $labels.instance }} has been over 90% for 2 minutes."
