@@ -1,0 +1,63 @@
+name: CI/CD Pipeline for WhatsVUpp
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      REGISTRY: docker.io/whatsvupp
+      IMAGE_BACKEND: backend-go
+      IMAGE_FRONTEND: frontend
+      IMAGE_TAG: latest
+
+    steps:
+      # 1. Get the source code from the repository
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      # 2. Prepare Go environment for backend-go unit tests
+      - name: Setup Go Lang
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Run Go Unit Tests (backend-go)
+        working-directory: ./backend-go
+        run: go test ./...
+
+      # 3. Authenticate with the Docker registry
+      - name: Docker Registry Login
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 4. Build and publish the Go backend image
+      - name: Build & Push Go Backend Image
+        run: |
+          docker build -t $REGISTRY/$IMAGE_BACKEND:$IMAGE_TAG -f docker/backend-go.Dockerfile .
+          docker push $REGISTRY/$IMAGE_BACKEND:$IMAGE_TAG
+
+      # 5. Build and publish the React frontend image
+      - name: Build & Push React Frontend Image
+        run: |
+          docker build -t $REGISTRY/$IMAGE_FRONTEND:$IMAGE_TAG -f docker/frontend.Dockerfile .
+          docker push $REGISTRY/$IMAGE_FRONTEND:$IMAGE_TAG
+
+      # 6. Configure Kubernetes access
+      - name: Set Kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+
+      # 7. Deploy the updated services to the cluster
+      - name: Apply Kubernetes Manifests
+        run: |
+          kubectl apply -f k8s/backend-go-deployment.yaml
+          kubectl apply -f k8s/frontend-deployment.yaml

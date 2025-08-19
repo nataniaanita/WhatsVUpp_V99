@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: backend-rust-monitor
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: backend-rust
+  endpoints:
+  - port: "8081"
+    path: /metrics
+    interval: 15s
